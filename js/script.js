@@ -104,3 +104,26 @@ console.log('Los puntajes son los mismos para ambos jugadores: '+puntajePerdedor
 } else {
 alert('¡'+ganador+' ha ganado el juego! El jugador con más puntos y por lo tanto el perdedor es: '+perdedor);
 console.log('Juego finalizado. '+perdedor+' ha perdido con '+puntajePerdedor+' puntos.');}
+
+// Opciones de premios y penitencias
+const premios = [
+    'No lavar los platos durante 2 días',
+    'Elegir la próxima película que vamos a ver',
+    'Elegir la música que vamos a escuchar en la próxima comida'
+];
+
+const penitencias = [
+    'Recitar un poema o cantar una canción',
+    'Tener que preparar la próxima once',
+    'Aspirar el living o comedor'
+];
+
+// Solicitar premio para el ganador
+let mensajePremios = 'Elige tu premio ingresando el número correspondiente: 1. ' + premios[0] + ' 2. ' + premios[1] + ' 3. ' + premios[2];
+let opcionPremio = parseInt(prompt(mensajePremios), 10);
+alert(ganador + ', tu premio es: ' + premios[opcionPremio - 1]);
+
+// Solicitar penitencia para el perdedor
+let mensajePenitencias = 'Elige tu penitencia ingresando el número correspondiente: 1. ' + penitencias[0] + ' 2. ' + penitencias[1] + ' 3. ' + penitencias[2];
+let opcionPenitencia = parseInt(prompt(mensajePenitencias), 10);
+alert(perdedor + ', tu penitencia es: ' + penitencias[opcionPenitencia - 1]);
