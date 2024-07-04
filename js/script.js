@@ -30,41 +30,7 @@ console.log('Puntajes iniciales: ' + nombreJugador1 + ' = ' + puntosJugador1 + '
 // Definir las rondas
 console.log('El carioca tiene varias rondas. Ejemplo: Un Trio (3), una escala(4), dos tríos (6), un trío y una escala (7), dos escalas (8), tres tríos (9), dos tríos y una escala (10), un trío y dos escalas (11), tres escalas (12) y escala real (12). Aunque en este juego no utilizaremos la escala real para no alargarlo tanto.')
 
-/*let rondaCarioca = prompt('Ingresa el número de ronda');
-switch (rondaCarioca) {
-    case '1':
-        alert('Primera ronda: un trío.')
-        break;
-    case '2':
-        alert('Segunda ronda: una escala.')
-        break;
-    case '3':
-        alert('Tercera ronda: dos tríos.')
-        break;
-    case '4':
-        alert('Cuarta ronda: un trío y una escala.')
-        break;
-    case '5':
-        alert('Quinta ronda: dos escalas.')
-        break;
-    case '6':
-        alert('Sexta ronda: tres tríos.')
-        break;
-    case '7':
-        alert('Septima ronda: dos tríos y una escala.')
-        break;
-    case '8':
-        alert('Octava ronda: un trío y dos escalas.')
-        break;
-    case '9':
-        alert('Novena ronda: 3 escalas.')
-        break;
-    default:
-        alert('Sólo hay 9 rondas en este juego.');
-        break;
-}*/
-
-//PRUEBA CHAT GTP:
+//PRUEBA CODIGO
 // Procesar las rondas en orden usando un bucle y switch
 for (let ronda = 1; ronda <= 9; ronda++) {
     switch (ronda) {
@@ -123,5 +89,18 @@ if (puntosJugador1 > puntosJugador2) {
     ganador = nombreJugador1;
 }
 
+let puntajePerdedor
+if (puntosJugador1 > puntosJugador2) {
+    puntajePerdedor = puntosJugador1
+} else if (puntosJugador2>puntosJugador1) {
+    puntajePerdedor=puntosJugador2
+} else{
+    puntajePerdedor='empate'
+}
+
+if (puntosJugador1 == puntosJugador2) {
+alert ('¡Empate!')
+console.log('Los puntajes son los mismos para ambos jugadores: '+puntajePerdedor)
+} else {
 alert('¡'+ganador+' ha ganado el juego! El jugador con más puntos y por lo tanto el perdedor es: '+perdedor);
-console.log('Juego finalizado. '+perdedor+' ha perdido con '+puntosJugador2+'puntos.');
+console.log('Juego finalizado. '+perdedor+' ha perdido con '+puntajePerdedor+' puntos.');}
