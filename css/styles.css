@@ -1,0 +1,74 @@
+/* Tipografía general para el sitio web */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f9f9f9;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+h1, h2, p {
+    color: #333;
+}
+
+/* Estilos para los formularios y contenedores */
+#jugadores-container {
+    margin: 20px 0;
+    width: 80%;
+    max-width: 600px;
+}
+
+form {
+    margin: 10px 0;
+    width: 80%;
+    max-width: 600px;
+}
+
+/* Estilos para los campos de entrada */
+input[type="text"], input[type="number"] {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+}
+
+/* Estilos para los botones */
+button {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border: none;
+    border-radius: 50px; /* Bordes 100% redondos */
+    background-color: #007BFF;
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+    box-sizing: border-box;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+
+/* Estilo para la lista de totales acumulados */
+#lista-totales {
+    list-style-type: none;
+    padding: 0;
+}
+
+#lista-totales li {
+    background-color: #fff;
+    margin: 5px 0;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+#ganador-actual {
+    color: #007BFF;
+    margin-top: 20px;
+}

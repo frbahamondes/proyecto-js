@@ -1,129 +1,112 @@
-//Dar la bienvenida al juego
-alert('Esta es la app para registrar los puntajes de tu juego de carioca 😊♠️♥️♣️♦️')
+// Estructura inicial de datos
+let jugadores = [];
 
-// Inicializar las variables de los jugadores
-let nombreJugador1 = prompt('¿Cómo se llama el primer jugador?');
-let nombreJugador2 = prompt('¿Cómo se llama el segundo jugador?');
+// Función para guardar los jugadores en localStorage
+const guardarEnLocalStorage = () => {
+    localStorage.setItem('jugadores', JSON.stringify(jugadores));
+};
 
-// Confirmar los nombres
-for (let i = 0; i < 3; i++) {
-    if (confirm('Los jugadores son ' + nombreJugador1 + " y " + nombreJugador2 + ". ¿Es correcto?")) {
-        alert('¡Que empiece el juego!');
-        console.log('Los jugadores ' + nombreJugador1 + ' y ' + nombreJugador2 + ' han comenzado un juego nuevo.');
-        break; // Salir del ciclo si los nombres son confirmados
-    } else {
-        alert('Reigresa los nombres de los jugadores. Intento ' + (i + 1) + '/3.')
-        console.log('Reigresa los nombres de los jugadores. Intento ' + (i + 1) + '/3.')
-        nombreJugador1 = prompt('Reingresa el nombre del primer jugador:');
-        nombreJugador2 = prompt('Reingresa el nombre del segundo jugador:');
-        if (i == 2) {
-            alert('La tercera es la vencida... ¡Comencemos el juego!')
-            console.log('Los jugadores que quedaron definido son: ' + nombreJugador1 + ' y ' + nombreJugador2 + '. Hora de empezar el juego.')
+// Función para cargar los jugadores desde localStorage
+const cargarDesdeLocalStorage = () => {
+    const jugadoresGuardados = localStorage.getItem('jugadores');
+    if (jugadoresGuardados) {
+        jugadores = JSON.parse(jugadoresGuardados);
+        mostrarJugadores();
+        mostrarTotalesAcumulados();
+    }
+};
+
+// Función para mostrar los jugadores en la página
+const mostrarJugadores = () => {
+    const jugadoresContainer = document.getElementById('jugadores-container');
+    jugadoresContainer.innerHTML = '';
+    jugadores.forEach((jugador, index) => {
+        const jugadorDiv = document.createElement('div');
+        jugadorDiv.innerHTML = `
+            <h3>${jugador.nombre}</h3>
+            <ul>
+                ${jugador.puntajes.map((puntaje, ronda) => `<li>Ronda ${ronda + 1}: ${puntaje !== null ? puntaje : 'N/A'} puntos</li>`).join('')}
+            </ul>
+            <button onclick="eliminarJugador(${index})">Eliminar</button>
+        `;
+        jugadoresContainer.appendChild(jugadorDiv);
+    });
+};
+
+// Función para agregar un jugador
+document.getElementById('form-jugador').addEventListener('submit', (event) => {
+    event.preventDefault();
+    if (jugadores.length >= 10) {
+        alert('No se pueden agregar más de 10 jugadores.');
+        return;
+    }
+    const nombreJugador = document.getElementById('nombre-jugador').value;
+    const nuevoJugador = {
+        nombre: nombreJugador,
+        puntajes: Array(10).fill(null) // Inicializar 10 rondas con null para permitir puntajes de 0
+    };
+    jugadores.push(nuevoJugador);
+    document.getElementById('nombre-jugador').value = '';
+    mostrarJugadores();
+    guardarEnLocalStorage();
+    mostrarTotalesAcumulados();
+});
+
+// Función para registrar puntajes de una ronda
+document.getElementById('form-puntaje').addEventListener('submit', (event) => {
+    event.preventDefault();
+    const numeroRonda = parseInt(document.getElementById('numero-ronda').value, 10) - 1; // Rondas empiezan en 0 en el array
+    if (numeroRonda < 0 || numeroRonda >= 10) { // Cambiar de 12 a 10 rondas
+        alert('Número de ronda inválido.');
+        return;
+    }
+    jugadores.forEach((jugador) => {
+        const puntaje = parseInt(prompt(`Ingresa el puntaje de ${jugador.nombre} para la ronda ${numeroRonda + 1}:`), 10);
+        if (!isNaN(puntaje)) {
+            jugador.puntajes[numeroRonda] = puntaje;
+        } else {
+            alert(`Por favor, ingresa un puntaje válido para ${jugador.nombre}.`);
         }
-    }
-}
-// Inicializar los puntajes
-let puntosJugador1 = 0;
-let puntosJugador2 = 0;
-console.log('Puntajes iniciales: ' + nombreJugador1 + ' = ' + puntosJugador1 + ' // ' + nombreJugador2 + ' = ' + puntosJugador2)
+    });
+    mostrarJugadores();
+    guardarEnLocalStorage();
+    mostrarTotalesAcumulados();
+});
 
-// Definir las rondas
-console.log('El carioca tiene varias rondas. Ejemplo: Un Trio (3), una escala(4), dos tríos (6), un trío y una escala (7), dos escalas (8), tres tríos (9), dos tríos y una escala (10), un trío y dos escalas (11), tres escalas (12) y escala real (12). Aunque en este juego no utilizaremos la escala real para no alargarlo tanto.')
+// Función para eliminar jugador
+const eliminarJugador = (index) => {
+    jugadores.splice(index, 1);
+    mostrarJugadores();
+    guardarEnLocalStorage();
+    mostrarTotalesAcumulados();
+};
 
-//PRUEBA CODIGO
-// Procesar las rondas en orden usando un bucle y switch
-for (let ronda = 1; ronda <= 9; ronda++) {
-    switch (ronda) {
-        case 1:
-            alert('Primera ronda: un trío.');
-            break;
-        case 2:
-            alert('Segunda ronda: una escala.');
-            break;
-        case 3:
-            alert('Tercera ronda: dos tríos.');
-            break;
-        case 4:
-            alert('Cuarta ronda: un trío y una escala.');
-            break;
-        case 5:
-            alert('Quinta ronda: dos escalas.');
-            break;
-        case 6:
-            alert('Sexta ronda: tres tríos.');
-            break;
-        case 7:
-            alert('Septima ronda: dos tríos y una escala.');
-            break;
-        case 8:
-            alert('Octava ronda: un trío y dos escalas.');
-            break;
-        case 9:
-            alert('Novena ronda: tres escalas.');
-            break;
-    }
-    let puntajeJugador1 = parseInt(prompt('Ingresa el puntaje de ' + nombreJugador1 + ' para esta ronda:'), 10);
-    let puntajeJugador2 = parseInt(prompt('Ingresa el puntaje de ' + nombreJugador2 + ' para esta ronda:'), 10);
+// Función para mostrar totales acumulados y quién va ganando
+const mostrarTotalesAcumulados = () => {
+    const listaTotales = document.getElementById('lista-totales');
+    listaTotales.innerHTML = '';
 
-    puntosJugador1 += puntajeJugador1; //agregué el igual para guardar el resultado de la variable.
-    puntosJugador2 += puntajeJugador2;
+    // Calcular los totales acumulados
+    const totalJugadores = jugadores.map(jugador => {
+        return {
+            nombre: jugador.nombre,
+            total: jugador.puntajes.reduce((acumulado, puntaje) => acumulado + (puntaje !== null ? puntaje : 0), 0)
+        };
+    });
 
-    console.log('Puntajes después de la ronda ' + ronda + '.');
-    console.log(nombreJugador1 + ': ' + puntosJugador1 + ' puntos.');
-    console.log(nombreJugador2 + ': ' + puntosJugador2 + ' puntos.');
+    // Mostrar totales en la consola para depuración
+    console.log("Totales acumulados: ", totalJugadores);
 
-    alert('Puntajes actualizados: ' + nombreJugador1 + ' tiene ' + puntosJugador1 + ' puntos. ' + nombreJugador2 + ' tiene ' + puntosJugador2 + ' puntos.');
-}
+    totalJugadores.forEach(jugador => {
+        const li = document.createElement('li');
+        li.textContent = `${jugador.nombre}: ${jugador.total} puntos`;
+        listaTotales.appendChild(li);
+    });
 
-// Finalizar el juego
-alert('Puntaje final: ' + nombreJugador1 + ': ' + puntosJugador1 + ', ' + nombreJugador2 + ': ' + puntosJugador2 + '.');
+};
 
-let ganador;
-let perdedor;
-
-if (puntosJugador1 > puntosJugador2) {
-    perdedor = nombreJugador1;
-    ganador = nombreJugador2;
-} else {
-    perdedor = nombreJugador2;
-    ganador = nombreJugador1;
-}
-
-let puntajePerdedor
-if (puntosJugador1 > puntosJugador2) {
-    puntajePerdedor = puntosJugador1
-} else if (puntosJugador2>puntosJugador1) {
-    puntajePerdedor=puntosJugador2
-} else{
-    puntajePerdedor='empate'
-}
-
-if (puntosJugador1 == puntosJugador2) {
-alert ('¡Empate!')
-console.log('Los puntajes son los mismos para ambos jugadores: '+puntajePerdedor)
-} else {
-alert('¡'+ganador+' ha ganado el juego! El jugador con más puntos y por lo tanto el perdedor es: '+perdedor);
-console.log('Juego finalizado. '+perdedor+' ha perdido con '+puntajePerdedor+' puntos.');}
-
-// Opciones de premios y penitencias
-const premios = [
-    'No lavar los platos durante 2 días',
-    'Elegir la próxima película que vamos a ver',
-    'Elegir la música que vamos a escuchar en la próxima comida'
-];
-
-const penitencias = [
-    'Recitar un poema o cantar una canción',
-    'Tener que preparar la próxima once',
-    'Aspirar el living o comedor'
-];
-
-// Solicitar premio para el ganador
-let mensajePremios = 'Elige tu premio ingresando el número correspondiente: 1. ' + premios[0] + ' 2. ' + premios[1] + ' 3. ' + premios[2];
-let opcionPremio = parseInt(prompt(mensajePremios), 10);
-alert(ganador + ', tu premio es: ' + premios[opcionPremio - 1]);
-
-// Solicitar penitencia para el perdedor
-let mensajePenitencias = 'Elige tu penitencia ingresando el número correspondiente: 1. ' + penitencias[0] + ' 2. ' + penitencias[1] + ' 3. ' + penitencias[2];
-let opcionPenitencia = parseInt(prompt(mensajePenitencias), 10);
-alert(perdedor + ', tu penitencia es: ' + penitencias[opcionPenitencia - 1]);
+// Cargar datos desde localStorage al cargar la página
+document.addEventListener('DOMContentLoaded', () => {
+    cargarDesdeLocalStorage();
+    mostrarTotalesAcumulados();
+});
