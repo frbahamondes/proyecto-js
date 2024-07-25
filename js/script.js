@@ -43,7 +43,7 @@ document.getElementById('form-jugador').addEventListener('submit', (event) => {
     const nombreJugador = document.getElementById('nombre-jugador').value;
     const nuevoJugador = {
         nombre: nombreJugador,
-        puntajes: Array(10).fill(null) // Inicializar 10 rondas con null para permitir puntajes de 0
+        puntajes: Array(12).fill(null) // Inicializar 12 rondas con null para permitir puntajes de 0
     };
     jugadores.push(nuevoJugador);
     document.getElementById('nombre-jugador').value = '';
@@ -56,7 +56,7 @@ document.getElementById('form-jugador').addEventListener('submit', (event) => {
 document.getElementById('form-puntaje').addEventListener('submit', (event) => {
     event.preventDefault();
     const numeroRonda = parseInt(document.getElementById('numero-ronda').value, 10) - 1; // Rondas empiezan en 0 en el array
-    if (numeroRonda < 0 || numeroRonda >= 10) { // Cambiar de 12 a 10 rondas
+    if (numeroRonda < 0 || numeroRonda >= 12) {
         alert('Número de ronda inválido.');
         return;
     }
@@ -94,15 +94,11 @@ const mostrarTotalesAcumulados = () => {
         };
     });
 
-    // Mostrar totales en la consola para depuración
-    console.log("Totales acumulados: ", totalJugadores);
-
     totalJugadores.forEach(jugador => {
         const li = document.createElement('li');
         li.textContent = `${jugador.nombre}: ${jugador.total} puntos`;
         listaTotales.appendChild(li);
     });
-
 };
 
 // Cargar datos desde localStorage al cargar la página
