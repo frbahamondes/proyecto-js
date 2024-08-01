@@ -13,6 +13,7 @@ const cargarDesdeLocalStorage = () => {
         jugadores = JSON.parse(jugadoresGuardados);
         mostrarJugadores();
         mostrarTotalesAcumulados();
+        mostrarInputsPuntajes(); // Mostrar inputs de puntajes al cargar jugadores
     }
 };
 
@@ -31,6 +32,7 @@ const mostrarJugadores = () => {
         `;
         jugadoresContainer.appendChild(jugadorDiv);
     });
+    mostrarInputsPuntajes(); // Actualizar inputs de puntajes al mostrar jugadores
 };
 
 // Función para agregar un jugador
@@ -50,28 +52,44 @@ document.getElementById('form-jugador').addEventListener('submit', (event) => {
     mostrarJugadores();
     guardarEnLocalStorage();
     mostrarTotalesAcumulados();
+    mostrarInputsPuntajes(); // Mostrar inputs de puntajes al agregar jugador
 });
 
 // Función para registrar puntajes de una ronda
 document.getElementById('form-puntaje').addEventListener('submit', (event) => {
     event.preventDefault();
     const numeroRonda = parseInt(document.getElementById('numero-ronda').value, 10) - 1; // Rondas empiezan en 0 en el array
-    if (numeroRonda < 0 || numeroRonda >= 10) { // Cambiado de 12 a 10
+    if (numeroRonda < 0 || numeroRonda >= 10) {
         alert('Número de ronda inválido.');
         return;
     }
-    jugadores.forEach((jugador) => {
-        const puntaje = parseInt(prompt(`Ingresa el puntaje de ${jugador.nombre} para la ronda ${numeroRonda + 1}:`), 10);
+    const inputsPuntajes = document.querySelectorAll('#inputs-puntajes input');
+    inputsPuntajes.forEach((input, index) => {
+        const puntaje = parseInt(input.value, 10);
         if (!isNaN(puntaje)) {
-            jugador.puntajes[numeroRonda] = puntaje;
+            jugadores[index].puntajes[numeroRonda] = puntaje;
         } else {
-            alert(`Por favor, ingresa un puntaje válido para ${jugador.nombre}.`);
+            alert(`Por favor, ingresa un puntaje válido para ${jugadores[index].nombre}.`);
         }
+        input.value = ''; // Limpiar el input después de registrar el puntaje
     });
     mostrarJugadores();
     guardarEnLocalStorage();
     mostrarTotalesAcumulados();
 });
+
+// Función para mostrar inputs de puntajes para cada jugador
+const mostrarInputsPuntajes = () => {
+    const inputsPuntajes = document.getElementById('inputs-puntajes');
+    inputsPuntajes.innerHTML = '';
+    jugadores.forEach((jugador, index) => {
+        const input = document.createElement('input');
+        input.type = 'number';
+        input.placeholder = `Puntaje de ${jugador.nombre}`;
+        input.id = `puntaje-${index}`;
+        inputsPuntajes.appendChild(input);
+    });
+};
 
 // Función para eliminar jugador
 const eliminarJugador = (index) => {
@@ -79,6 +97,7 @@ const eliminarJugador = (index) => {
     mostrarJugadores();
     guardarEnLocalStorage();
     mostrarTotalesAcumulados();
+    mostrarInputsPuntajes(); // Actualizar inputs de puntajes
 };
 
 // Función para mostrar totales acumulados y quién va ganando
@@ -102,7 +121,5 @@ const mostrarTotalesAcumulados = () => {
 };
 
 // Cargar datos desde localStorage al cargar la página
-document.addEventListener('DOMContentLoaded', () => {
-    cargarDesdeLocalStorage();
-    mostrarTotalesAcumulados();
-});
+cargarDesdeLocalStorage();
+mostrarTotalesAcumulados();
