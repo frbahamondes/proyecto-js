@@ -11,7 +11,29 @@
     <h1>Carioca</h1>
     <p>Este es un simulador para llevar la cuenta de los puntajes de un juego de carioca para dos personas.</p>
     <h2>🎉 Instrucciones para Jugar al Carioca 🎉</h2>
-    <!-- (Resto del contenido de las instrucciones) -->
+    <h3>🔄 Desarrollo del Juego:</h3>
+    <p>Cada ronda tiene un objetivo específico de cartas que debes juntar en tu mano para poder "bajar" y así evitar acumular puntos:</p>
+    <ul>
+        <li>Ronda 1: Un trío (👶👶👶)</li>
+        <li>Ronda 2: Una escala de cuatro cartas (🚀)</li>
+        <li>Ronda 3: Dos tríos (👶👶👶 + 👶👶👶)</li>
+        <li>Ronda 4: Un trío y una escala (👶👶👶 + 🚀)</li>
+        <li>Ronda 5: Dos escalas (🚀 + 🚀)</li>
+        <li>Ronda 6: Tres tríos (👶👶👶 + 👶👶👶 + 👶👶👶)</li>
+        <li>Ronda 7: Dos tríos y una escala (👶👶👶 + 👶👶👶 + 🚀)</li>
+        <li>Ronda 8: Un trío y dos escalas (👶👶👶 + 🚀 + 🚀)</li>
+        <li>Ronda 9: Tres escalas (🚀 + 🚀 + 🚀)</li>
+        <li>Ronda 10: Escala Real o no se juega.</li>
+    </ul>
+    <h3>🏁 Fin de Ronda:</h3>
+    <p>Cuando un jugador baja todas sus cartas, los demás jugadores suman puntos basados en las cartas que les quedaron en la mano:</p>
+    <ul>
+        <li>Las cartas numéricas valen su valor facial.</li>
+        <li>Las figuras (J, Q, K) valen 10 puntos.</li>
+        <li>Los ases valen 20 puntos.</li>
+        <li>Los comodines valen 30 puntos.</li>
+    </ul>
+    <p>Al final de la última ronda, el jugador con menos puntos es el ganador. 🎉</p>
     <div id="jugadores-container"></div>
     <form id="form-jugador">
         <input type="text" id="nombre-jugador" placeholder="Nombre del jugador" required>
@@ -24,6 +46,7 @@
         <button type="submit">Registrar Puntajes de la Ronda</button>
     </form>
     <div id="resultados"></div>
+    <div id="mensaje"></div> <!-- Contenedor para los mensajes -->
     <div id="totales-acumulados">
         <h2>Totales Acumulados</h2>
         <ul id="lista-totales"></ul>

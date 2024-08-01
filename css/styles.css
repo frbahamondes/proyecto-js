@@ -103,3 +103,29 @@ button:hover {
         width: 100%;
     }
 }
+/* Estilos para el contenedor de mensajes */
+#mensaje {
+    margin: 20px;
+    padding: 10px;
+    border-radius: 5px;
+    text-align: center;
+    font-size: 16px;
+}
+
+#mensaje.info {
+    background-color: #e7f3fe;
+    color: #31708f;
+    border: 1px solid #bce8f1;
+}
+
+#mensaje.success {
+    background-color: #dff0d8;
+    color: #3c763d;
+    border: 1px solid #d6e9c6;
+}
+
+#mensaje.error {
+    background-color: #f2dede;
+    color: #a94442;
+    border: 1px solid #ebccd1;
+}
