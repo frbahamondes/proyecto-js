@@ -4,7 +4,7 @@ let jugadores = [];
 // Función para guardar los jugadores en localStorage
 const guardarEnLocalStorage = () => {
     localStorage.setItem('jugadores', JSON.stringify(jugadores));
-};
+}; // ESTA INFO PODRÍA LLEVARLA A UN ARCHIVO.JSON?
 
 // Función para cargar los jugadores desde localStorage
 const cargarDesdeLocalStorage = () => {
@@ -79,14 +79,22 @@ document.getElementById('form-puntaje').addEventListener('submit', (event) => {
     let puntajesValidos = true;
     inputsPuntajes.forEach((input, index) => {
         const puntaje = parseInt(input.value, 10);
-        if (!isNaN(puntaje)) {
+        if (puntaje < 0) {
+            puntajesValidos = false;
+            mostrarMensaje(`El puntaje no puede ser negativo para ${jugadores[index].nombre}.`, 'error');
+        } else if (!isNaN(puntaje)) {
             jugadores[index].puntajes[numeroRonda] = puntaje;
         } else {
             puntajesValidos = false;
-            mostrarMensaje(`Por favor, ingresa un puntaje válido para ${jugadores[index].nombre}.`, 'error');
+            newFunction();
         }
         input.value = ''; // Limpiar el input después de registrar el puntaje
+
+        function newFunction() {
+            mostrarMensaje(`Por favor, ingresa un puntaje válido para ${jugadores[index]}.nombre}.`, 'error');
+        }
     });
+
     if (puntajesValidos) {
         mostrarJugadores();
         guardarEnLocalStorage();
