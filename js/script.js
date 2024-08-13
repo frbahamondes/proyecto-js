@@ -23,16 +23,50 @@ const mostrarJugadores = () => {
     jugadoresContainer.innerHTML = '';
     jugadores.forEach((jugador, index) => {
         const jugadorDiv = document.createElement('div');
-        jugadorDiv.innerHTML = `
-            <h3>${jugador.nombre}</h3>
-            <ul>
-                ${jugador.puntajes.map((puntaje, ronda) => `<li>Ronda ${ronda + 1}: ${puntaje !== null ? puntaje : 'N/A'} puntos</li>`).join('')}
-            </ul>
-            <button onclick="eliminarJugador(${index})">Eliminar</button>
-        `;
+        
+        // Crear el contenido del jugador
+        const jugadorNombre = document.createElement('h3');
+        jugadorNombre.textContent = jugador.nombre;
+
+        const jugadorPuntajes = document.createElement('ul');
+        jugador.puntajes.forEach((puntaje, ronda) => {
+            const li = document.createElement('li');
+            li.textContent = `Ronda ${ronda + 1}: `;
+            
+            // Crear un input para editar el puntaje
+            const input = document.createElement('input');
+            input.type = 'number';
+            input.value = puntaje !== null ? puntaje : '';
+            
+            // Manejar el cambio de valor en el input
+            input.addEventListener('change', () => {
+                const nuevoPuntaje = parseInt(input.value, 10);
+                if (!isNaN(nuevoPuntaje) && nuevoPuntaje >= 0) {
+                    jugador.puntajes[ronda] = nuevoPuntaje; // Actualizar el puntaje
+                    guardarEnLocalStorage(); // Guardar en localStorage
+                    mostrarTotalesAcumulados(); // Actualizar totales
+                    mostrarMensaje(`Puntaje actualizado para la Ronda ${ronda + 1}.`, 'success');
+                } else {
+                    mostrarMensaje('Por favor, ingresa un puntaje válido.', 'error');
+                }
+            });
+            
+            li.appendChild(input);
+            jugadorPuntajes.appendChild(li);
+        });
+
+        const eliminarButton = document.createElement('button');
+        eliminarButton.textContent = 'Eliminar';
+        eliminarButton.addEventListener('click', () => eliminarJugador(index));
+
+        // Agregar elementos al contenedor del jugador
+        jugadorDiv.appendChild(jugadorNombre);
+        jugadorDiv.appendChild(jugadorPuntajes);
+        jugadorDiv.appendChild(eliminarButton);
+
+        // Agregar el contenedor del jugador al contenedor principal
         jugadoresContainer.appendChild(jugadorDiv);
     });
-    mostrarInputsPuntajes(); // Actualizar inputs de puntajes al mostrar jugadores
 };
 
 // Función para mostrar un mensaje en la interfaz
@@ -53,9 +87,13 @@ document.getElementById('form-jugador').addEventListener('submit', (event) => {
         mostrarMensaje('No se pueden agregar más de 10 jugadores.', 'error');
         return;
     }
-    const nombreJugador = document.getElementById('nombre-jugador').value;
+    if (jugadores.some(jugador => jugador.nombre.toLowerCase() === (document.getElementById('nombre-jugador').value.trim()).toLowerCase())) {
+        mostrarMensaje('Ya existe un jugador con ese nombre.', 'error');
+        return;
+    }
+
     const nuevoJugador = {
-        nombre: nombreJugador,
+        nombre: document.getElementById('nombre-jugador').value.trim(),
         puntajes: Array(10).fill(null) // Inicializar 10 rondas con null para permitir puntajes de 0
     };
     jugadores.push(nuevoJugador);
@@ -64,43 +102,7 @@ document.getElementById('form-jugador').addEventListener('submit', (event) => {
     guardarEnLocalStorage();
     mostrarTotalesAcumulados();
     mostrarInputsPuntajes(); // Mostrar inputs de puntajes al agregar jugador
-    mostrarMensaje(`Jugador ${nombreJugador} agregado.`, 'success');
-});
-
-// Función para registrar puntajes de una ronda
-document.getElementById('form-puntaje').addEventListener('submit', (event) => {
-    event.preventDefault();
-    const numeroRonda = parseInt(document.getElementById('numero-ronda').value, 10) - 1; // Rondas empiezan en 0 en el array
-    if (numeroRonda < 0 || numeroRonda >= 10) {
-        mostrarMensaje('Número de ronda inválido.', 'error');
-        return;
-    }
-    const inputsPuntajes = document.querySelectorAll('#inputs-puntajes input');
-    let puntajesValidos = true;
-    inputsPuntajes.forEach((input, index) => {
-        const puntaje = parseInt(input.value, 10);
-        if (puntaje < 0) {
-            puntajesValidos = false;
-            mostrarMensaje(`El puntaje no puede ser negativo para ${jugadores[index].nombre}.`, 'error');
-        } else if (!isNaN(puntaje)) {
-            jugadores[index].puntajes[numeroRonda] = puntaje;
-        } else {
-            puntajesValidos = false;
-            newFunction();
-        }
-        input.value = ''; // Limpiar el input después de registrar el puntaje
-
-        function newFunction() {
-            mostrarMensaje(`Por favor, ingresa un puntaje válido para ${jugadores[index]}.nombre}.`, 'error');
-        }
-    });
-
-    if (puntajesValidos) {
-        mostrarJugadores();
-        guardarEnLocalStorage();
-        mostrarTotalesAcumulados();
-        mostrarMensaje('Puntajes de la ronda registrados.', 'success');
-    }
+    mostrarMensaje(`Jugador ${document.getElementById('nombre-jugador').value.trim()} agregado.`, 'success');
 });
 
 // Función para mostrar inputs de puntajes para cada jugador
