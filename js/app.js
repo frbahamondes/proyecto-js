@@ -3,11 +3,12 @@
 // Función para mostrar los jugadores en la página
 const mostrarJugadores = () => {
     const jugadoresContainer = document.getElementById('jugadores-container');
-    jugadoresContainer.innerHTML = '';
+    jugadoresContainer.innerHTML = ''; // Limpiar el contenedor antes de agregar los jugadores
+
     jugadores.forEach((jugador, index) => {
         const jugadorDiv = document.createElement('div');
-        
-        // Crear el contenido del jugador
+        jugadorDiv.classList.add('jugador-card'); // Clase para estilizar cada jugador
+
         const jugadorNombre = document.createElement('h3');
         jugadorNombre.textContent = jugador.nombre;
 
@@ -15,25 +16,22 @@ const mostrarJugadores = () => {
         jugador.puntajes.forEach((puntaje, ronda) => {
             const li = document.createElement('li');
             li.textContent = `Ronda ${ronda + 1}: `;
-            
-            // Crear un input para editar el puntaje
+
             const input = document.createElement('input');
             input.type = 'number';
             input.value = puntaje !== null ? puntaje : '';
-            
-            // Manejar el cambio de valor en el input
             input.addEventListener('change', () => {
                 const nuevoPuntaje = parseInt(input.value, 10);
                 if (!isNaN(nuevoPuntaje) && nuevoPuntaje >= 0) {
-                    jugador.puntajes[ronda] = nuevoPuntaje; // Actualizar el puntaje
-                    guardarEnLocalStorage(); // Guardar en localStorage
-                    mostrarTotalesAcumulados(); // Actualizar totales
+                    jugador.puntajes[ronda] = nuevoPuntaje;
+                    guardarEnLocalStorage();
+                    mostrarTotalesAcumulados();
                     mostrarMensaje(`Puntaje actualizado para la Ronda ${ronda + 1}.`, 'success');
                 } else {
                     mostrarMensaje('Por favor, ingresa un puntaje válido.', 'error');
                 }
             });
-            
+
             li.appendChild(input);
             jugadorPuntajes.appendChild(li);
         });
@@ -42,13 +40,11 @@ const mostrarJugadores = () => {
         eliminarButton.textContent = 'Eliminar';
         eliminarButton.addEventListener('click', () => eliminarJugador(index));
 
-        // Agregar elementos al contenedor del jugador
         jugadorDiv.appendChild(jugadorNombre);
         jugadorDiv.appendChild(jugadorPuntajes);
         jugadorDiv.appendChild(eliminarButton);
 
-        // Agregar el contenedor del jugador al contenedor principal
-        jugadoresContainer.appendChild(jugadorDiv);
+        jugadoresContainer.appendChild(jugadorDiv); // Agregar la tarjeta del jugador al contenedor principal
     });
 };
 
@@ -125,7 +121,6 @@ document.getElementById('form-jugador').addEventListener('submit', (event) => {
     mostrarTotalesAcumulados();
     mostrarMensaje(`Jugador ${nombreJugador} agregado.`, 'success');
 });
-
 
 // Función para eliminar jugador
 const eliminarJugador = (index) => {

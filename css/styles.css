@@ -30,6 +30,16 @@ form {
     align-items: center;
 }
 
+/* Estilo para las tarjetas de jugadores */
+.jugador-card {
+    background-color: #fff;
+    margin: 10px 0;
+    padding: 15px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
 /* Estilos para los campos de entrada */
 input[type="text"], input[type="number"] {
     width: 100%;
@@ -114,6 +124,7 @@ button:hover {
         width: 100%;
     }
 }
+
 /* Estilos para el contenedor de mensajes */
 #mensaje {
     margin: 20px;
@@ -139,4 +150,33 @@ button:hover {
     background-color: #f2dede;
     color: #a94442;
     border: 1px solid #ebccd1;
+}
+
+/* Mejoras sugeridas */
+
+/* Separar secciones con bordes y fondos suaves */
+.jugadores-section, #totales-acumulados, .instrucciones {
+    margin-bottom: 30px;
+    padding: 20px;
+    border-radius: 10px;
+    background-color: #f9f9f9;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+/* Resaltar el ganador */
+#ganador-actual {
+    color: #ff5722; /* Color para resaltar el ganador */
+    font-weight: bold;
+    font-size: 20px;
+}
+
+/* Aumentar márgenes */
+#form-jugador, #jugadores-container, #totales-acumulados {
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+/* Mejorar el espaciado vertical */
+h1, h2, h3, p {
+    margin-bottom: 15px;
 }
