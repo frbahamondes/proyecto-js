@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,14 +8,16 @@
     <link rel="stylesheet" href="./css/styles.css"> <!-- Enlace a la hoja de estilos CSS -->
     <!-- <script defer src="js/script.js"></script>-->
     <script defer src="js/data.js"></script> <!-- Primero cargar los datos -->
-    <script defer src="js/app.js"></script>  <!-- Luego la lógica de la app -->
+    <script defer src="js/app.js"></script> <!-- Luego la lógica de la app -->
 </head>
+
 <body>
     <h1>Carioca</h1>
     <p>Este es un simulador para llevar la cuenta de los puntajes de un juego de carioca para dos personas.</p>
     <h2>🎉 Instrucciones para Jugar al Carioca 🎉</h2>
     <h3>🔄 Desarrollo del Juego:</h3>
-    <p>Cada ronda tiene un objetivo específico de cartas que debes juntar en tu mano para poder "bajar" y así evitar acumular puntos:</p>
+    <p>Cada ronda tiene un objetivo específico de cartas que debes juntar en tu mano para poder "bajar" y así evitar
+        acumular puntos:</p>
     <ul>
         <li>Ronda 1: Un trío (👶👶👶)</li>
         <li>Ronda 2: Una escala de cuatro cartas (🚀)</li>
@@ -28,7 +31,8 @@
         <li>Ronda 10: Escala Real o no se juega.</li>
     </ul>
     <h3>🏁 Fin de Ronda:</h3>
-    <p>Cuando un jugador baja todas sus cartas, los demás jugadores suman puntos basados en las cartas quedaron en la mano:</p>
+    <p>Cuando un jugador baja todas sus cartas, los demás jugadores suman puntos basados en las cartas quedaron en la
+        mano:</p>
     <ul>
         <li>Las cartas numéricas valen su valor facial.</li>
         <li>Las figuras (J, Q, K) valen 10 puntos.</li>
@@ -37,10 +41,15 @@
     </ul>
     <p>Al final de la última ronda, el jugador con menos puntos es el ganador. 🎉</p>
     <div id="jugadores-container"></div>
-    <form id="form-jugador">
-        <input type="text" id="nombre-jugador" placeholder="Nombre del jugador" required>
-        <button type="submit">Agregar Jugador</button>
-    </form>
+    <div class="jugadores-section">
+        <form id="form-jugador">
+            <input type="text" id="nombre-jugador" placeholder="Nombre del jugador" required>
+            <button type="submit">Agregar Jugador</button>
+        </form>
+        <div id="jugadores-container"></div>
+        <button id="eliminar-todos">Eliminar Todos los Jugadores</button>
+    </div>
+
     <div id="resultados"></div>
     <div id="mensaje"></div> <!-- Contenedor para los mensajes -->
     <div id="totales-acumulados">
@@ -48,5 +57,7 @@
         <ul id="lista-totales"></ul>
         <h2 id="ganador-actual"></h2>
     </div>
+
 </body>
+
 </html>
