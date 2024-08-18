@@ -30,7 +30,12 @@ const mostrarJugadores = () => {
                     mostrarTotalesAcumulados();
                     mostrarMensaje(`Puntaje actualizado para la Ronda ${ronda + 1}.`, 'success');
                 } else {
-                    mostrarMensaje('Por favor, ingresa un puntaje válido.', 'error');
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Oops...',
+                        text: 'Por favor, ingresa un puntaje válido.',
+                        footer: '<a href="agregar-jugadores.html">¿Por qué tengo este problema?</a>'
+                    });
                 }
             });
 
@@ -92,7 +97,8 @@ const mostrarTotalesAcumulados = () => {
     });
 };
 
-// Función para mostrar un mensaje en la interfaz
+// Función para mostrar un mensaje en la interfaz (anteriormente)
+// Reemplazada por SweetAlert en los casos específicos
 const mostrarMensaje = (mensaje, tipo = 'info') => {
     const mensajeDiv = document.getElementById('mensaje');
     mensajeDiv.textContent = mensaje;
@@ -110,26 +116,46 @@ document.getElementById('form-jugador').addEventListener('submit', (event) => {
 
     // Validar si el nombre está vacío o contiene solo espacios
     if (nombreJugador === '') {
-        mostrarMensaje('El nombre del jugador no puede estar vacío.', 'error');
+        Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: 'El nombre del jugador no puede estar vacío.',
+            footer: '<a href="agregar-jugadores.html">¿Por qué tengo este problema?</a>'
+        });
         return;
     }
 
     // Validar si el nombre contiene números
     const contieneNumeros = /\d/;
     if (contieneNumeros.test(nombreJugador)) {
-        mostrarMensaje('El nombre del jugador no puede contener números.', 'error');
+        Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: 'El nombre del jugador no puede contener números.',
+            footer: '<a href="agregar-jugadores.html">¿Por qué tengo este problema?</a>'
+        });
         return;
     }
 
     // Validar si ya existen 10 jugadores
     if (jugadores.length >= 10) {
-        mostrarMensaje('No se pueden agregar más de 10 jugadores.', 'error');
+        Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: 'No se pueden agregar más de 10 jugadores.',
+            footer: '<a href="agregar-jugadores.html">¿Por qué tengo este problema?</a>'
+        });
         return;
     }
 
     // Validar si ya existe un jugador con el mismo nombre
     if (jugadores.some(jugador => jugador.nombre.toLowerCase() === nombreJugador.toLowerCase())) {
-        mostrarMensaje('Ya existe un jugador con ese nombre.', 'error');
+        Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: 'Ya existe un jugador con ese nombre.',
+            footer: '<a href="agregar-jugadores.html">¿Por qué tengo este problema?</a>'
+        });
         return;
     }
 
@@ -143,7 +169,13 @@ document.getElementById('form-jugador').addEventListener('submit', (event) => {
     mostrarJugadores();
     guardarEnLocalStorage();
     mostrarTotalesAcumulados();
-    mostrarMensaje(`Jugador ${nombreJugador} agregado.`, 'success');
+    Swal.fire({
+        icon: 'success',
+        title: '¡Éxito!',
+        text: `Jugador ${nombreJugador} agregado.`,
+        confirmButtonText: 'Aceptar',
+        confirmButtonColor: '#3085d6'
+    });
 });
 
 // Función para eliminar jugador individual
@@ -153,7 +185,13 @@ const eliminarJugador = (index) => {
     mostrarJugadores();
     guardarEnLocalStorage();
     mostrarTotalesAcumulados();
-    mostrarMensaje(`Jugador ${nombre} eliminado.`, 'success');
+    Swal.fire({
+        icon: 'success',
+        title: '¡Jugador Eliminado!',
+        text: `Jugador ${nombre} ha sido eliminado.`,
+        confirmButtonText: 'Aceptar',
+        confirmButtonColor: '#3085d6'
+    });
 };
 
 // Función para eliminar todos los jugadores usando SweetAlert
