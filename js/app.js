@@ -146,7 +146,7 @@ document.getElementById('form-jugador').addEventListener('submit', (event) => {
     mostrarMensaje(`Jugador ${nombreJugador} agregado.`, 'success');
 });
 
-// Función para eliminar jugador
+// Función para eliminar jugador individual
 const eliminarJugador = (index) => {
     const nombre = jugadores[index].nombre;
     jugadores.splice(index, 1);
@@ -155,6 +155,33 @@ const eliminarJugador = (index) => {
     mostrarTotalesAcumulados();
     mostrarMensaje(`Jugador ${nombre} eliminado.`, 'success');
 };
+
+// Función para eliminar todos los jugadores usando SweetAlert
+document.getElementById('eliminar-todos').addEventListener('click', () => {
+    Swal.fire({
+        title: "¿Estás seguro?",
+        text: "¡No podrás revertir esto!",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "¡Sí, bórralos!",
+        cancelButtonText: "Cancelar"
+    }).then((result) => {
+        if (result.isConfirmed) {
+            // Si el usuario confirma, elimina todos los jugadores
+            jugadores = [];
+            guardarEnLocalStorage(); // Limpia el localStorage
+            mostrarJugadores(); // Refresca la vista para mostrar que no hay jugadores
+            mostrarTotalesAcumulados(); // Actualiza los totales acumulados
+            Swal.fire({
+                title: "¡Eliminados!",
+                text: "Todos los jugadores han sido eliminados.",
+                icon: "success"
+            });
+        }
+    });
+});
 
 // Inicializar la página mostrando jugadores y totales
 document.addEventListener('DOMContentLoaded', () => {
