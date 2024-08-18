@@ -1,0 +1,8 @@
+[
+    { "nombre": "Mauricio", "puntajes": [null, null, null, null, null, null, null, null, null, null] },
+    { "nombre": "Francisca", "puntajes": [null, null, null, null, null, null, null, null, null, null] },
+    { "nombre": "Angélica", "puntajes": [null, null, null, null, null, null, null, null, null, null] },
+    { "nombre": "Alexandra", "puntajes": [null, null, null, null, null, null, null, null, null, null] },
+    { "nombre": "Pablo", "puntajes": [null, null, null, null, null, null, null, null, null, null] },
+    { "nombre": "Antonia", "puntajes": [null, null, null, null, null, null, null, null, null, null] }
+]

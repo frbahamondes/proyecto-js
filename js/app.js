@@ -87,27 +87,45 @@ const mostrarMensaje = (mensaje, tipo = 'info') => {
 document.getElementById('form-jugador').addEventListener('submit', (event) => {
     event.preventDefault();
     const nombreJugador = document.getElementById('nombre-jugador').value.trim();
-    
+
+    // Validar si el nombre está vacío o contiene solo espacios
+    if (nombreJugador === '') {
+        mostrarMensaje('El nombre del jugador no puede estar vacío.', 'error');
+        return;
+    }
+
+    // Validar si el nombre contiene números
+    const contieneNumeros = /\d/;
+    if (contieneNumeros.test(nombreJugador)) {
+        mostrarMensaje('El nombre del jugador no puede contener números.', 'error');
+        return;
+    }
+
+    // Validar si ya existen 10 jugadores
     if (jugadores.length >= 10) {
         mostrarMensaje('No se pueden agregar más de 10 jugadores.', 'error');
         return;
     }
+
+    // Validar si ya existe un jugador con el mismo nombre
     if (jugadores.some(jugador => jugador.nombre.toLowerCase() === nombreJugador.toLowerCase())) {
         mostrarMensaje('Ya existe un jugador con ese nombre.', 'error');
         return;
     }
 
+    // Si pasa todas las validaciones, agregar el nuevo jugador
     const nuevoJugador = {
         nombre: nombreJugador,
         puntajes: Array(10).fill(null) // Inicializar 10 rondas con null para permitir puntajes de 0
     };
     jugadores.push(nuevoJugador);
-    document.getElementById('nombre-jugador').value = '';
+    document.getElementById('nombre-jugador').value = ''; // Limpiar el campo de entrada
     mostrarJugadores();
     guardarEnLocalStorage();
     mostrarTotalesAcumulados();
     mostrarMensaje(`Jugador ${nombreJugador} agregado.`, 'success');
 });
+
 
 // Función para eliminar jugador
 const eliminarJugador = (index) => {
