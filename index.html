@@ -6,7 +6,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mi proyecto de JS</title>
     <link rel="stylesheet" href="./css/styles.css"> <!-- Enlace a la hoja de estilos CSS -->
-    <!-- <script defer src="js/script.js"></script>-->
     <script defer src="js/data.js"></script> <!-- Primero cargar los datos -->
     <script defer src="js/app.js"></script> <!-- Luego la lógica de la app -->
 </head>
@@ -40,14 +39,24 @@
         <li>Los comodines valen 30 puntos.</li>
     </ul>
     <p>Al final de la última ronda, el jugador con menos puntos es el ganador. 🎉</p>
-    <div id="jugadores-container"></div>
+
     <div class="jugadores-section">
         <form id="form-jugador">
             <input type="text" id="nombre-jugador" placeholder="Nombre del jugador" required>
             <button type="submit">Agregar Jugador</button>
         </form>
-        <div id="jugadores-container"></div>
+
+        <!-- Botón para eliminar todos los jugadores -->
         <button id="eliminar-todos">Eliminar Todos los Jugadores</button>
+
+        <!-- Aquí colocamos el carrusel de tarjetas de jugadores -->
+        <div class="carrusel-container">
+            <button id="prev-btn">❮</button>
+            <div id="jugadores-container" class="carrusel">
+                <!-- Las tarjetas de jugadores se agregarán aquí dinámicamente -->
+            </div>
+            <button id="next-btn">❯</button>
+        </div>
     </div>
 
     <div id="resultados"></div>

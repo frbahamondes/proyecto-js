@@ -1,5 +1,7 @@
 // app.js
 
+let currentSlide = 0; // Índice de la tarjeta actual
+
 // Función para mostrar los jugadores en la página
 const mostrarJugadores = () => {
     const jugadoresContainer = document.getElementById('jugadores-container');
@@ -46,7 +48,29 @@ const mostrarJugadores = () => {
 
         jugadoresContainer.appendChild(jugadorDiv); // Agregar la tarjeta del jugador al contenedor principal
     });
+
+    actualizarCarrusel(); // Asegura que el carrusel se actualice correctamente
 };
+
+// Función para actualizar la posición del carrusel
+const actualizarCarrusel = () => {
+    const jugadoresContainer = document.querySelector('.carrusel');
+    jugadoresContainer.style.transform = `translateX(-${currentSlide * 100}%)`;
+};
+
+document.getElementById('prev-btn').addEventListener('click', () => {
+    if (currentSlide > 0) {
+        currentSlide--;
+        actualizarCarrusel();
+    }
+});
+
+document.getElementById('next-btn').addEventListener('click', () => {
+    if (currentSlide < jugadores.length - 1) {
+        currentSlide++;
+        actualizarCarrusel();
+    }
+});
 
 // Función para mostrar totales acumulados y quién va ganando
 const mostrarTotalesAcumulados = () => {

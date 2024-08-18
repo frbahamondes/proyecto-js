@@ -33,12 +33,16 @@ form {
 /* Estilo para las tarjetas de jugadores */
 .jugador-card {
     background-color: #fff;
-    margin: 10px 0;
+    margin: 10px; /* Añadir margen alrededor de cada tarjeta */
     padding: 15px;
     border: 1px solid #ccc;
     border-radius: 8px;
+    box-sizing: border-box;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    flex-shrink: 0; /* Evita que las tarjetas se encojan */
+    min-width: calc(100% - 20px); /* Ajusta el ancho para considerar el margen */
 }
+
 
 /* Estilos para los campos de entrada */
 input[type="text"], input[type="number"] {
@@ -57,8 +61,8 @@ input[type="text"], input[type="number"] {
     padding: 20px;
     margin: 20px 0;
     background-color: #f0f0f0;
-    max-width: 600px;
-    width: 100%;
+    max-width: 900px; /* Aumentar el ancho máximo */
+    width: 90%; /* Aumentar el porcentaje de la pantalla que ocupa */
 }
 
 /* Estilos para los botones */
@@ -179,4 +183,51 @@ button:hover {
 /* Mejorar el espaciado vertical */
 h1, h2, h3, p {
     margin-bottom: 15px;
+}
+
+/* Estilos para el contenedor del carrusel */
+.carrusel-container {
+    display: flex;
+    align-items: center;
+    justify-content: center; /* Mantener el carrusel centrado */
+    width: 100%;
+    max-width: 100%; /* Asegura que ocupe todo el ancho disponible */
+    overflow: hidden;
+    position: relative;
+    margin-top: 20px;
+}
+
+/* Estilos para el carrusel */
+.carrusel {
+    display: flex;
+    transition: transform 0.5s ease-in-out;
+    width: 100%;
+}
+
+/* Estilos para las tarjetas de jugadores dentro del carrusel */
+.jugador-card {
+    min-width: calc(100% - 20px); /* Ajustar para ocupar el ancho disponible */
+    margin: 10px; /* Mantener el margen para separación entre tarjetas */
+    flex-shrink: 0; /* Evitar que las tarjetas se encojan */
+    box-sizing: border-box;
+    background-color: #fff;
+    padding: 15px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+/* Estilos para los botones de navegación del carrusel */
+button#prev-btn, button#next-btn {
+    background-color: #007BFF;
+    color: white;
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+    z-index: 1;
+    margin: 0 10px; /* Añadir margen para separar los botones de las tarjetas */
+}
+
+button#prev-btn:hover, button#next-btn:hover {
+    background-color: #0056b3;
 }
