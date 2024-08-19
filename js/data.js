@@ -31,7 +31,13 @@ const cargarJugadoresPredefinidos = async () => {
         jugadores = [...jugadores, ...jugadoresFiltrados];
         guardarEnLocalStorage(); // Guardar la lista completa en localStorage
     } catch (error) {
-        console.error('Hubo un problema con la carga de los datos: ', error);
+        Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: 'Hubo un problema al cargar los jugadores predefinidos. Por favor, inténtalo de nuevo.',
+        });
+    } finally {
+        Swal.fire("Operación completada", "Los jugadores predefinidos han sido procesados.", "success");
     }
 };
 
