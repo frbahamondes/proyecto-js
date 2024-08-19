@@ -237,3 +237,47 @@ button#prev-btn, button#next-btn {
 button#prev-btn:hover, button#next-btn:hover {
     background-color: #0056b3;
 }
+
+/* ESTILOS HTML DE EXPLICACIÓN EERRORES AL AGREGAR JUGADORES*/
+/* Estilo del contenedor en agregar-jugadores.html */
+.contenedor {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+/* Estilo para el botón */
+.boton {
+    display: inline-block;
+    padding: 10px 20px;
+    margin-top: 20px;
+    color: white;
+    background-color: #007BFF;
+    border: none;
+    border-radius: 50px;
+    text-decoration: none;
+    text-align: center;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.boton:hover {
+    background-color: #0056b3;
+}
+
+/* Estilo para limitar el ancho del texto y centrarlo */
+.contenedor-texto {
+    max-width: 800px; /* Limita el ancho del contenedor */
+    margin: 0 auto; /* Centra el contenedor horizontalmente */
+    padding: 20px;
+    text-align: left; /* Asegura que el texto esté alineado a la izquierda */
+}
+
+.contenedor-texto p {
+    font-size: 16px; /* Tamaño de fuente adecuado para leer */
+    line-height: 1.6; /* Espaciado entre líneas para mejorar la legibilidad */
+}
