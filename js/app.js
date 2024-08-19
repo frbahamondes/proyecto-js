@@ -24,6 +24,7 @@ const mostrarJugadores = () => {
             input.value = puntaje !== null ? puntaje : '';
             input.addEventListener('change', () => {
                 const nuevoPuntaje = parseInt(input.value, 10);
+                
                 if (!isNaN(nuevoPuntaje) && nuevoPuntaje >= 0) {
                     jugador.puntajes[ronda] = nuevoPuntaje;
                     guardarEnLocalStorage();
@@ -37,7 +38,7 @@ const mostrarJugadores = () => {
                         footer: '<a href="agregar-jugadores.html">¿Por qué tengo este problema?</a>'
                     });
                 }
-            });
+            });           
 
             li.appendChild(input);
             jugadorPuntajes.appendChild(li);
