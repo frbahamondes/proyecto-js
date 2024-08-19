@@ -280,4 +280,9 @@ button#prev-btn:hover, button#next-btn:hover {
 .contenedor-texto p {
     font-size: 16px; /* Tamaño de fuente adecuado para leer */
     line-height: 1.6; /* Espaciado entre líneas para mejorar la legibilidad */
+    max-width: 800px; /* Limita el ancho del contenedor */
+    margin: 0 auto; /* Centra el contenedor horizontalmente */
+    padding: 20px; /* Añadir espacio alrededor de todo el contenido */
+    text-align: left; /* Asegura que el texto esté alineado a la izquierda */
+    box-sizing: border-box; /* Incluye padding en el ancho total del contenedor */
 }

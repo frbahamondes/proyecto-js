@@ -223,7 +223,5 @@ document.getElementById('eliminar-todos').addEventListener('click', () => {
 });
 
 // Inicializar la página mostrando jugadores y totales
-document.addEventListener('DOMContentLoaded', () => {
-    mostrarJugadores();
-    mostrarTotalesAcumulados();
-});
+mostrarJugadores();
+mostrarTotalesAcumulados();
