@@ -37,7 +37,7 @@ const cargarJugadoresPredefinidos = async () => {
             text: 'Hubo un problema al cargar los jugadores predefinidos. Por favor, inténtalo de nuevo.',
         });
     } finally {
-        Swal.fire("Operación completada", "Los jugadores predefinidos han sido procesados.", "success");
+        Swal.fire("Operación completada", "Los jugadores predefinidos han sido procesados. Si quieres comenzar con nuevos jugadores has clic en 'Eiminar Todos los Jugadores'", "success");
     }
 };
 
